@@ -1,0 +1,126 @@
+openapi: 3.0.3
+info:
+  title: ISABELLA AI API
+  version: '1.0.0'
+  description: Núcleo emocional del ecosistema TAMV: análisis, memoria y control seguro de dispositivos
+servers:
+  - url: https://api.tamv.mx/api/isabella/v1
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT poscuántico
+
+  schemas:
+    EmotionAnalyzeRequest:
+      type: object
+      properties:
+        text:
+          type: string
+        voiceSample:
+          type: string
+          format: binary
+    EmotionAnalyzeResponse:
+      type: object
+      properties:
+        detectedEmotion:
+          type: string
+        confidenceScore:
+          type: number
+          format: float
+        suggestedResponse:
+          type: string
+
+    DeviceCommandRequest:
+      type: object
+      properties:
+        deviceId:
+          type: string
+        command:
+          type: string
+        parameters:
+          type: object
+
+paths:
+  /emotion/analyze:
+    post:
+      summary: Analiza estado emocional via texto y voz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EmotionAnalyzeRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmotionAnalyzeResponse'
+
+  /emotion/respond:
+    post:
+      summary: Generar respuesta empática personalizada
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                context:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responseText:
+                    type: string
+
+  /memory/{userId}:
+    get:
+      summary: Obtener memoria vectorial emocional del usuario
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    vector:
+                      type: array
+                      items:
+                        type: number
+                    timestamp:
+                      type: string
+
+  /device/command:
+    post:
+      summary: Enviar comando seguro a dispositivos conectados
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceCommandRequest'
+      responses:
+        '200':
+          description: Comando ejecutado correctamente
+
+security:
+- bearerAuth: []
