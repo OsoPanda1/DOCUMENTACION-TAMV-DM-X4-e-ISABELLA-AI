@@ -1,0 +1,169 @@
+openapi: 3.0.3
+info:
+  title: TAMV DM-X4 API
+  version: '1.0.0'
+  description: |
+    API RESTful del ecosistema TAMV DM-X4 para autenticación, IA emocional, economía digital, streaming XR y seguridad poscuántica.
+servers:
+  - url: https://api.tamv.mx/v2
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # poscuántico con CRYSTALS-Dilithium
+
+  schemas:
+    UserRegister:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        biometricData:
+          type: string
+          description: Cadena cifrada con datos biométricos
+        kycData:
+          type: object
+          description: Datos para verificación KYC
+    AuthToken:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT poscuántico para autenticación
+
+    EmotionalAnalysisRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Texto para análisis emocional
+        audio:
+          type: string
+          format: binary
+          description: Archivo de audio opcional
+        userId:
+          type: string
+          description: Identificación del usuario
+    EmotionalAnalysisResponse:
+      type: object
+      properties:
+        emotion:
+          type: string
+        score:
+          type: number
+          format: float
+        response:
+          type: string
+
+paths:
+  /auth/register:
+    post:
+      summary: Registro de usuario con KYC y biometría
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegister'
+      responses:
+        '201':
+          description: Usuario registrado con éxito
+        '400':
+          description: Error en datos de entrada
+
+  /auth/login:
+    post:
+      summary: Login con biometría y obtención de token poscuántico
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                biometricData:
+                  type: string
+      responses:
+        '200':
+          description: Token JWT emitido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+        '401':
+          description: Autenticación fallida
+
+  /users/{id}/profile:
+    get:
+      summary: Obtener perfil de usuario con datos emocionales
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Perfil del usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                  emotionalStatus:
+                    type: string
+
+  /ai/emotional-analysis:
+    post:
+      summary: Análisis emocional avanzado con texto y audio
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EmotionalAnalysisRequest'
+      responses:
+        '200':
+          description: Resultado de análisis emocional
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmotionalAnalysisResponse'
+
+  /economy/mint-nft:
+    post:
+      summary: Acuñación de NFT emocional
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: object
+                  description: Datos que definen el NFT
+      responses:
+        '201':
+          description: NFT acuñado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  txHash:
+                    type: string
+                    description: Hash de transacción blockchain
+
+security:
+- bearerAuth: []
