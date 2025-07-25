@@ -1,0 +1,32 @@
+{
+  "name": "tamv-dm-x4-api",
+  "version": "1.0.0",
+  "description": "API TAMV DM-X4 con seguridad poscuántica y núcleo emocional",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.0",
+    "tamv-quantum-crypto": "^1.0.0",
+    "firebase-admin": "^11.0.0",
+    "pg": "^8.10.0",
+    "pinecone-client": "^0.3.0",
+    "dotenv": "^16.0.0",
+    "socket.io": "^4.5.1",
+    "swagger-ui-express": "^4.5.0",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/node": "^18.7.18",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3",
+    "jest": "^29.2.0"
+  }
+}
