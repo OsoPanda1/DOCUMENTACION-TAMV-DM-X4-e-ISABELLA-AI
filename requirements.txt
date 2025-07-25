@@ -1,0 +1,43 @@
+# ================================================
+# Requirements para TAMV DM-X4 API (Node.js/TypeScript)
+# Nota: Estas librerías deben instalarse via npm/yarn
+# (Aquí solo listamos para referencia, no en requirements.txt)
+#
+# express
+# cors
+# jsonwebtoken
+# tamv-quantum-crypto (librería propietaria ficticia)
+# firebase-admin
+# pg
+# pinecone-client
+# dotenv
+# socket.io
+# swagger-ui-express
+# yamljs
+#
+# Recomendación de comandos para Node.js:
+# npm install express cors jsonwebtoken firebase-admin pg pinecone-client dotenv socket.io swagger-ui-express yamljs
+# ================================================
+
+# ================================================
+# Requirements para ISABELLA AI API (Python)
+# ================================================
+
+fastapi==0.95.1
+uvicorn[standard]==0.22.0
+pydantic==1.10.7
+transformers==4.30.0
+torch==2.0.1
+pinecone-client==1.3.1
+python-jose==3.3.0
+mqtt==1.6.1
+cryptography==41.0.3
+requests==2.31.0
+pytest==7.4.2
+
+# Librería para JWT con adaptaciones poscuánticas (requiere implementación propia)
+# (Ejemplo: 'pyjwt' podría usarse hasta contar con soporte Dilithium)
+pyjwt==2.6.0  
+
+# Otras herramientas opcionales recomendadas para el despliegue y desarrollo:
+python-dotenv==1.0.0   # Para manejar variables de entorno
