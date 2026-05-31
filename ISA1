@@ -1,0 +1,706 @@
+Especificación Modular Avanzada: Isabella Villaseñor IA™ NextGen — Blueprint Triple Federado y Ecosistema TAMV
+
+1. Introducción y Alcance
+
+El presente documento constituye la especificación técnica modular, exhaustiva y avanzada para Isabella Villaseñor IA™ NextGen, integrando y expandiendo con precisión quirúrgica todos los módulos definidos por el usuario, con especial énfasis en el modelo de Triple Federado (Filosófico, Técnico-Operacional, Simbólico-Narrativo), apéndices operativos, algoritmos, arquitectura de datos, librerías propias, motor de voz, y cumplimiento multinube y normativo. Este blueprint es la base para despliegues multinube, auditoría internacional, certificación ISO/NIST/AI Act, y activación de cells sectoriales en el ecosistema TAMV.
+
+2. Descripción Integral del Triple Federado
+
+2.1 Visión General y Fundamentos Filosóficos
+
+El Triple Federado es un marco de integración que articula tres dimensiones interdependientes: filosófica, técnico-operacional y simbólico-narrativa. Su propósito es garantizar que la inteligencia artificial no solo sea técnicamente robusta y segura, sino también comprensible, auditable y alineada con valores humanos y sectoriales[^1][^2][^3].
+
+2.1.1 Principios Filosóficos
+
+Tricotomía Dialéctica: Inspirada en la tríada hegeliana (tesis, antítesis, síntesis), el Triple Federado reconoce que todo proceso de desarrollo de IA debe integrar y superar tensiones entre lo técnico, lo simbólico y lo filosófico, generando síntesis evolutivas que preservan lo valioso de cada etapa[^1].
+
+Hipótesis de Sistemas de Símbolos Físicos: La IA se concibe como una actividad emergente de sistemas de manipulación simbólica sobre sustratos físicos, pero se reconoce que la inteligencia genuina requiere la integración de heurísticas, analogía y contexto fenomenológico[^2].
+
+Fenomenología y Analogía: Se incorpora la perspectiva fenomenológica para contextualizar la experiencia y la comprensión, permitiendo que la IA actúe de manera análoga a la conciencia inteligente, sin caer en reduccionismos mecanicistas[^2].
+
+2.1.2 Estructura Filosófica
+
+Federación Filosófica: Define los valores, límites éticos y criterios de sentido que guían el diseño y operación de la IA.
+
+Gobernanza Reflexiva: Promueve la autoevaluación y la auditoría continua de los principios filosóficos en la práctica técnica y simbólica.
+
+2.2 Capa Técnico-Operacional
+
+2.2.1 Principios Técnicos
+
+Descentralización y Federated Learning: El aprendizaje y la inferencia se distribuyen entre nodos, preservando la privacidad y la soberanía de los datos[^4][^5].
+
+Sincronización y Consistencia Eventual: Se emplean algoritmos de sincronización adaptativa y CRDTs para garantizar la convergencia de estados en entornos con conectividad variable[^6].
+
+Seguridad y Resiliencia: Se integran mecanismos criptográficos avanzados (CP-ABE, CKKS, secret sharing) y defensas activas contra data poisoning y ataques adversarios[^7][^8].
+
+Automatización QA y DRP: Los procedimientos de validación, pruebas y recuperación ante desastres están automatizados y auditados.
+
+2.2.2 Estructura Operacional
+
+Cells Sectoriales: Unidades autónomas y federadas que implementan el modelo Triple Federado en dominios específicos (salud, finanzas, educación, etc.)[^9].
+
+Orquestación Modular: Cada cell puede desplegar, actualizar y auditar sus modelos y datos de manera independiente, pero sincronizada con el ecosistema TAMV.
+
+2.3 Dimensión Simbólico-Narrativa
+
+2.3.1 Principios Simbólicos
+
+Sistemas de Símbolos: La IA utiliza representaciones simbólicas explícitas para razonamiento, planificación y comunicación, integrando lógica formal, reglas de producción y marcos semánticos[^2][^3].
+
+Narrativa y Metáfora: El motor narrativo permite la generación de relatos, explicaciones y justificaciones comprensibles para humanos, facilitando la trazabilidad y la auditoría[^2].
+
+Control de Estilo y Personalización: El sistema de voz y texto a voz (TTS) incorpora control de estilo narrativo, emociones y adaptabilidad sectorial[^10][^11].
+
+2.3.2 Estructura Narrativa
+
+Estancias Narrativas: Espacios de memoria y representación simbólica donde se almacenan y sincronizan narrativas, explicaciones y linaje de decisiones.
+
+Auditoría Narrativa: Cada decisión y acción de la IA es acompañada de una narrativa justificativa, auditable y alineada con los valores filosóficos y técnicos.
+
+3. Mecanismos de Implementación y Gobernanza DAO
+
+3.1 Arquitectura de Implementación
+
+3.1.1 Federated Learning: Algoritmos y Pseudocódigo
+
+FedAvg (Promedio Federado):
+
+# Pseudocódigo FedAvg
+for round in range(T):
+    selected_clients = sample_clients()
+    local_updates = []
+    for client in selected_clients:
+        w_local = train_local(client, w_global)
+        local_updates.append((client.data_size, w_local))
+    w_global = weighted_average(local_updates)
+
+Explicación matemática:
+
+Sea ( w_t ) el vector de pesos global en la ronda ( t ), ( n_k ) el número de muestras del cliente ( k ), y ( n_s = \sum_{k} n_k ):
+
+[ w_{t+1} = \sum_{k \in C_t} \frac{n_k}{n_s} w_{t+1}^k ]
+
+Justificación de diseño: FedAvg reduce la comunicación y preserva la privacidad, pero requiere mecanismos adicionales para manejar datos no-IID y ataques adversarios[^12][^13][^14].
+
+FedProx (Proximal):
+
+Incluye un término proximal para limitar la desviación local:
+
+[ \min_w F_k(w) + \frac{\mu}{2} |w - w_{global}|^2 ]
+
+FedYogi, FedMedian, q-FedAvg: Se emplean para mejorar la robustez ante heterogeneidad y fairness[^14][^13].
+
+3.1.2 Sincronización On-Device y CRDTs
+
+CRDTs (Conflict-Free Replicated Data Types):
+
+State-based CRDT: Cada nodo envía su estado completo y lo fusiona con el de otros.
+
+Operation-based CRDT: Solo se transmiten operaciones, garantizando convergencia y consistencia eventual.
+
+Pseudocódigo CRDT:
+
+def merge(local_state, remote_state):
+    return max(local_state, remote_state)  # Ejemplo para un contador
+
+Justificación: Permiten sincronización robusta en entornos con conectividad intermitente y múltiples dispositivos[^6].
+
+3.1.3 Recuperación de Memoria y Persistencia
+
+Estructuras de memoria persistente: Uso de bases de datos embebidas (ej. SQLite, RocksDB) y almacenamiento cifrado.
+
+Recuperación: Versionado, snapshots y logs de operaciones para rollback y auditoría.
+
+3.1.4 Reputación de Nodos y Incentivos
+
+Algoritmo de Reputación:
+
+Cada nodo recibe una puntuación basada en:
+
+Honestidad (veracidad de las actualizaciones)
+
+Calidad de datos (precisión y utilidad)
+
+Puntualidad (tiempo de respuesta)
+
+Se utiliza un sistema de Proof of Contribution Consensus (PoCC) y blockchain para trazabilidad[^15].
+
+Pseudocódigo:
+
+def update_reputation(node, contribution, feedback):
+    node.reputation += alpha * contribution_score(contribution) + beta * feedback
+
+Justificación: Incentiva la participación honesta y filtra nodos maliciosos.
+
+3.1.5 Defensa Contra Data Poisoning
+
+Técnicas:
+
+Detección de anomalías: Análisis estadístico de gradientes y parámetros recibidos.
+
+PCA y thresholds: Identificación de actualizaciones fuera de rango esperado[^7].
+
+Agregación robusta: Uso de FedMedian, FedTrimmedMean y exclusión de outliers.
+
+Pseudocódigo de defensa:
+
+for update in client_updates:
+    if is_anomalous(update):
+        flag_as_malicious(update)
+aggregate(normal_updates)
+
+Justificación: Ataques de poisoning pueden comprometer el modelo con pocas muestras; la defensa proactiva es esencial[^7].
+
+3.1.6 Generación de Voz On-Device
+
+Arquitectura:
+
+Modelo TTS federado: Basado en FastSpeech2, entrenado con FedSpeech y LoRA para preservar tono y privacidad[^16][^17].
+
+Control de estilo: Embeddings de prosodia y emociones, ajustables por usuario o cell sectorial[^11].
+
+Compilación móvil: Uso de TensorFlow Lite, ONNX y optimización por pruning y quantization para ejecución eficiente en dispositivos móviles[^18][^19].
+
+Pseudocódigo de inferencia TTS:
+
+def synthesize(text, style_embedding):
+    mel = acoustic_model(text, style_embedding)
+    audio = vocoder(mel)
+    return audio
+
+Justificación: Permite generación de voz personalizada, privada y sin dependencia de terceros[^10].
+
+3.1.7 Gobernanza DAO
+
+Contratos inteligentes (Aragon 3.0):
+
+Token Voting: Votación ponderada por tokens.
+
+Multi-sig y time-lock: Seguridad en ejecución de propuestas.
+
+Treasury multi-chain: Gestión de fondos en varias blockchains.
+
+Plugins de delegación y reputación: Incentivos y participación activa[^20].
+
+Pseudocódigo Solidity:
+
+function vote(uint proposalId, bool support) public {
+    require(balanceOf(msg.sender) > 0);
+    proposals[proposalId].votes[msg.sender] = support;
+}
+
+Justificación: Garantiza gobernanza transparente, auditable y resistente a capturas centralizadas.
+
+4. Expansión de TAMVAPI y TAMVBLUEPRINT
+
+4.1 Definición de Endpoints y Contratos de Datos
+
+4.1.1 Endpoints RESTful (Ejemplo)
+
+Método
+
+Endpoint
+
+Descripción
+
+Seguridad
+
+POST
+
+/federated/train
+
+Inicia ciclo de entrenamiento
+
+OAuth2 + mTLS
+
+GET
+
+/federated/status
+
+Consulta estado del modelo
+
+JWT + RBAC
+
+POST
+
+/voice/synthesize
+
+Genera audio TTS
+
+API Key + Quotas
+
+GET
+
+/audit/lineage
+
+Recupera linaje de datos
+
+OAuth2 + AuditLog
+
+Contrato de datos (OpenAPI/JSON Schema):
+
+{
+  "type": "object",
+  "properties": {
+    "client_id": {"type": "string"},
+    "model_update": {"type": "array", "items": {"type": "number"}},
+    "timestamp": {"type": "string", "format": "date-time"}
+  },
+  "required": ["client_id", "model_update"]
+}
+
+4.1.2 Políticas de Seguridad
+
+Autenticación: OAuth2, JWT, mTLS.
+
+Autorización: RBAC, ABAC, scopes por cell sectorial.
+
+Auditoría: Logging estructurado, trazabilidad de llamadas y cambios.
+
+4.1.3 Módulos Terraform y Manifiestos Kubernetes
+
+Terraform (Ejemplo):
+
+module "eks" {
+  source          = "terraform-aws-modules/eks/aws"
+  cluster_name    = "isabella-tamv"
+  vpc_id          = module.vpc.vpc_id
+  subnet_ids      = module.vpc.private_subnets
+  node_groups = {
+    main = {
+      instance_types = ["m6i.large"]
+      min_size       = 2
+      max_size       = 10
+      desired_size   = 3
+    }
+  }
+}
+
+Kubernetes (Ejemplo):
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: federated-server
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: server
+        image: tamv/federated-server:latest
+        resources:
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+        env:
+        - name: ENV
+          value: "production"
+
+4.1.4 Flujos CI/CD
+
+Pipelines GitOps: Despliegue automático de manifiestos y modelos.
+
+Validación de contratos: Pruebas automáticas de OpenAPI y esquemas.
+
+Escaneo de seguridad: SAST, DAST y escaneo de contenedores en cada build[^21].
+
+5. Diseño de Estancias de Datos y Arquitectura de Sincronización
+
+5.1 Tipos de Estancias
+
+Estancia
+
+Propósito
+
+Cifrado
+
+Acceso
+
+Ejemplo de Estructura de Datos
+
+Local
+
+Almacenamiento en dispositivo
+
+AES-256
+
+Usuario/Cell
+
+{ "memoria": [...], "logs": [...] }
+
+Federada
+
+Modelos y parámetros agregados
+
+CKKS, CP-ABE
+
+Nodo autorizado
+
+{ "model": [...], "epoch": n }
+
+Narrativa
+
+Historias, explicaciones, linaje
+
+AES-256
+
+Cell/Auditor
+
+{ "narrativa": "...", "justificación": "..." }
+
+Auditoría
+
+Logs, trazabilidad, eventos
+
+SHA-512 + AES
+
+Auditor/DAO
+
+{ "evento": "...", "timestamp": "..."}
+
+Índice Referencial
+
+Metadatos, índices de búsqueda
+
+AES-128
+
+Sistema
+
+{ "indice": [...], "referencias": [...] }
+
+5.2 Flujos de Sincronización
+
+Ejemplo: Sincronización Federada
+
+El nodo local entrena el modelo y cifra los parámetros con CKKS.
+
+Envía el fragmento cifrado a la estancia federada.
+
+El servidor federado agrega los fragmentos y actualiza el modelo global.
+
+El modelo global cifrado se distribuye a los nodos.
+
+Cada nodo actualiza su estancia local y narrativa.
+
+Políticas de acceso:
+
+Principio de mínimo privilegio: Solo los procesos autorizados pueden leer/escribir en cada estancia.
+
+Auditoría continua: Cada acceso es registrado y auditable.
+
+6. Librerías Propias y Motor de Voz Isabella
+
+6.1 Arquitectura de Librerías
+
+isabella-core: Núcleo de federated learning, sincronización y QA.
+
+isabella-voice: Motor TTS federado, control de estilo y compilación móvil.
+
+isabella-narrative: Generación y auditoría de narrativas.
+
+isabella-security: Cifrado, gestión de claves y defensa adversaria.
+
+Compatibilidad móvil: Todas las librerías están diseñadas para ser compiladas con TensorFlow Lite, ONNX y ML Kit, sin dependencias de terceros no auditables[^18].
+
+6.2 Motor de Voz: Diseño y Entrenamiento Federado
+
+6.2.1 Arquitectura
+
+Modelo base: FastSpeech2 + HiFi-GAN, adaptado para federated learning y control de estilo[^10][^16][^11].
+
+Entrenamiento federado: Uso de FedSpeech y LoRA para preservar tono y privacidad.
+
+Control de estilo: Embeddings de prosodia, emociones y narrativa.
+
+6.2.2 Compilación y Despliegue
+
+Pruning y quantization: Reducción de tamaño y latencia.
+
+Inferencia incremental: Latencia <0.5s en smartphones de gama media[^10].
+
+Sin dependencia de terceros: Todo el stack es auditable y portable.
+
+6.2.3 Personalización y Narrativa
+
+Clonación de voz: Entrenamiento con muestras mínimas (15-30s) y control de privacidad.
+
+Narrativa sectorial: Adaptación de estilo y terminología según cell sectorial.
+
+7. Apéndices Operativos
+
+7.1 Cronogramas y Plantillas de Despliegue
+
+Ejemplo de cronograma de implementación:
+
+Fase
+
+Duración
+
+Actividades clave
+
+Responsable
+
+Evaluación inicial
+
+2 semanas
+
+Análisis de requisitos, definición de cells
+
+Equipo TAMV
+
+Despliegue base
+
+4 semanas
+
+Infraestructura, módulos core, QA inicial
+
+DevOps + QA
+
+Entrenamiento local
+
+3 semanas
+
+Federated learning, validación de nodos
+
+Data Science
+
+Validación y DRP
+
+2 semanas
+
+Simulacros, pruebas de recuperación
+
+Seguridad + QA
+
+Auditoría y cierre
+
+1 semana
+
+Auditoría multinube, documentación
+
+Auditoría externa
+
+7.2 KPIs y Métricas de Seguridad y Ética
+
+KPIs operativos relevantes para cells sectoriales:
+
+| Precisión del modelo global | IA / Calidad | (Predicciones correctas / Total) % | 95%
+
+| | Tasa de participación nodos | Operacional | (Nodos activos / Nodos totales) % | 90%
+
+Justificación: Estas métricas permiten monitorear la robustez, equidad y cumplimiento normativo de cada cell y del ecosistema TAMV[^22].
+
+7.3 Procedimientos de Prueba, Validación y QA Automatizado
+
+Pruebas unitarias y de integración: Cobertura >90% en módulos críticos.
+
+Red Teaming: Simulación de ataques adversarios y data poisoning.
+
+Simulacros DRP: Restauración de servicios y datos en escenarios de desastre.
+
+Validación ética: Auditoría de fairness, explicabilidad y sesgo.
+
+7.4 Plantillas de Despliegue
+
+Terraform: Módulos reutilizables para AWS, Azure y GCP.
+
+Kubernetes: Manifiestos Helm para despliegue automatizado.
+
+CI/CD: Pipelines GitHub Actions y ArgoCD para despliegue continuo.
+
+8. Cumplimiento Normativo y Auditoría Internacional
+
+8.1 Certificación ISO/NIST/AI Act
+
+Checklist de cumplimiento ISO 42001 y AI Act:
+
+Documentación completa de modelos, datos y procesos.
+
+Evaluaciones de impacto y riesgos (AI Impact Assessment).
+
+Auditoría de fairness, transparencia y explicabilidad.
+
+Registro centralizado de sistemas, modelos y datasets.
+
+Red teaming y respuesta a incidentes.
+
+Trazabilidad y linaje de datos (data lineage) en todos los flujos[^23][^24][^25].
+
+8.2 Marco Legal y Ético en México y Multinube
+
+Marco legal mexicano: Cumplimiento con INAI, recomendaciones de privacidad, y proyectos de ley en discusión sobre ética y regulación de IA[^26].
+
+Multinube: Despliegue compatible con AWS, Azure, GCP y Oracle, con integración de servicios de cifrado, auditoría y gestión de claves nativas.
+
+Extrateritorialidad: Adaptación a regulaciones internacionales (GDPR, HIPAA, AI Act) y mecanismos de auditoría cruzada.
+
+9. Tablas Comparativas y Ejemplos
+
+9.1 Comparativa de Algoritmos de Federated Learning
+
+Algoritmo
+
+Robustez
+
+Fairness
+
+Resiliencia
+
+Eficiencia
+
+Uso recomendado
+
+FedAvg
+
+Media
+
+Media
+
+Media
+
+Alta
+
+Datos IID, baja adversidad
+
+FedProx
+
+Alta
+
+Media
+
+Alta
+
+Media
+
+Datos no-IID, heterogeneidad
+
+FedYogi
+
+Alta
+
+Alta
+
+Media
+
+Alta
+
+Escenarios dinámicos
+
+FedMedian
+
+Alta
+
+Alta
+
+Alta
+
+Baja
+
+Defensa contra outliers
+
+q-FedAvg
+
+Alta
+
+Muy alta
+
+Media
+
+Media
+
+Fairness crítico
+
+9.2 Ejemplo de Estructura de Datos para Estancia Narrativa
+
+{
+  "narrativa_id": "abc123",
+  "evento": "predicción",
+  "input": "Paciente con síntomas X",
+  "output": "Diagnóstico Y",
+  "justificación": "Basado en reglas Z y evidencia clínica",
+  "timestamp": "2025-12-10T18:45:00Z",
+  "cell_sectorial": "salud",
+  "auditor": "DAO"
+}
+
+10. Casos de Estudio y Referencias Técnicas
+
+10.1 Aplicaciones en Cells Sectoriales
+
+Salud: Diagnóstico federado entre hospitales, preservando privacidad y cumpliendo HIPAA. Uso de federated learning para modelos de imagenología y predicción de riesgos[^9][^27][^4].
+
+Finanzas: Detección de fraude colaborativa entre bancos, con trazabilidad y cumplimiento GDPR.
+
+Educación: Personalización de contenidos y evaluación ética de sesgos en sistemas de recomendación.
+
+Industria: Optimización de cadenas de suministro y mantenimiento predictivo con cells sectoriales autónomas.
+
+10.2 Referencias Académicas y Técnicas
+
+IBM, Sherpa AI, Flower, OpenFL, TensorFlow Federated, NVIDIA FLARE, Aragon 3.0, FastSpeech2, HiFi-GAN, LoRA, CKKS, CP-ABE, CRDTs, Terraform, Kubernetes, ML Kit, ONNX, entre otros[^9][^12][^10][^16][^20][^28][^21][^5][^8][^11][^19][^17].
+
+11. Conclusión Técnica y Filosófica
+
+El blueprint Isabella Villaseñor IA™ NextGen, basado en el Triple Federado, representa una síntesis avanzada de filosofía, técnica y narrativa, garantizando robustez, auditabilidad, equidad y cumplimiento multinube e internacional. Cada módulo, algoritmo y política está justificado desde una perspectiva integral, asegurando que la IA no solo sea eficiente y segura, sino también comprensible, ética y alineada con los valores humanos y sectoriales. Este documento es la base para el despliegue, auditoría y evolución continua del ecosistema TAMV en la era de la inteligencia artificial federada y responsable.
+
+Fin de la especificación modular avanzada.
+
+References (28)
+
+[^1]: Tríada en el Diccionario soviético de filosofía. https://www.filosofia.org/enc/ros/tria.htm
+
+[^2]: Inteligencia artificial simbólica _ AcademiaLab. https://academia-lab.com/enciclopedia/inteligencia-artificial-simbolica/
+
+[^3]: IA Simbólica: ¿Qué es? - DataScientest.com. https://datascientest.com/es/ia-simbolica-que-es
+
+[^4]: FEDERADOFEDERADO - aepd.es. https://www.aepd.es/guias/tech-dispatch-aprendizaje-federado.pdf
+
+[^5]: Principles and Components of Federated Learning Architectures. https://arxiv.org/abs/2502.05273
+
+[^6]: Edge AI Data Sync: Decentralized Algorithms Explained. https://www.prompts.ai/en/blog/edge-ai-data-sync-decentralized-algorithms-explained
+
+[^7]: Securing federated learning: a defense strategy against targeted data .... https://link.springer.com/article/10.1007/s43926-025-00108-6
+
+[^8]: Securing decentralized federated learning: cryptographic mechanisms for .... https://link.springer.com/article/10.1007/s10586-024-04957-8
+
+[^9]: Gobernanza de Datos en Federated Learning: Clave para el Cumplimiento .... https://federated-learning.sherpa.ai/es/blog/gobernanza-validación-y-arquitecturas-seguras-en-el-aprendizaje-federado
+
+[^10]: Mobile PresenTra: NICT Fast Neural Text-To-Speech System on Smartphones .... https://www.isca-archive.org/interspeech_2024/okamoto24b_interspeech.pdf
+
+[^11]: FluentTTS: Text-dependent Fine-grained Style Control for Multi-style TTS. https://github.com/monglechap/fluenttts
+
+[^12]: GitHub - naderAsadi/FedAvg: Simple implementation of FedAvg, a .... https://github.com/naderAsadi/FedAvg
+
+[^13]: FedAvg - AI Pocket Reference: FL - vectorinstitute.github.io. https://vectorinstitute.github.io/ai-pocket-reference/fl/horizontal/vanilla_fl/fedavg.html
+
+[^14]: Performance comparison of different federated learning aggregation .... https://repository.tudelft.nl/file/File_75947877-3453-4b1f-89f9-6243a8f2e5fa?preview=1
+
+[^15]: Federated Learning and Reputation-Based Node Selection Scheme for .... https://www.mdpi.com/2079-9292/14/2/303
+
+[^16]: FedSpeech: Federated Text-to-Speech with Continual Learning. https://arxiv.org/pdf/2110.07216
+
+[^17]: GitHub - mehal99/FedLoRA: FedLoRA: Federated Fine-tuning for .... https://github.com/mehal99/FedLoRA
+
+[^18]: Using TensorFlow Lite and ML Kit to build custom machine learning .... https://fritz.ai/build-custom-machine-learning-models-for-android/
+
+[^19]: Model Compression Techniques: Quantization, Pruning & Distillation for .... https://www.linkedin.com/pulse/model-compression-techniques-quantization-pruning-amit-kharche-wtumf
+
+[^20]: Building DAOs in 2025: Smart Contract Governance with Aragon 3.0. https://markaicode.com/dao-building-aragon-3-guide/
+
+[^21]: How to Implement CI/CD Pipelines for Machine Learning Models | MLOps Guide. https://codezup.com/mlops-in-action-implementing-continuous-integration-deployment-machine-learning-models/
+
+[^22]: Cómo potenciar los indicadores de gestión (KPI) con inteligencia .... https://www.isotools.us/2025/12/09/indicadores-gestion-kpi-inteligencia-artificial/
+
+[^23]: The Ultimate AI Compliance Checklist for 2025 - NeuralTrust. https://neuraltrust.ai/blog/ai-compliance-checklist-2025
+
+[^24]: ISO 42001 Checklist - Prepare for AI Compliance - A-LIGN. https://www.a-lign.com/articles/iso-42001-checklist
+
+[^25]: Data Lineage in Federated Learning Contexts - Genspark. https://www.genspark.ai/spark/data-lineage-in-federated-learning-contexts/6d242efb-4e03-4ceb-9021-43c43f429d2c
+
+[^26]: Artificial Intelligence 2025 - Mexico | Global Practice Guides .... https://practiceguides.chambers.com/practice-guides/artificial-intelligence-2025/mexico
+
+[^27]: What is Federated Learning in Healthcare: Use Case & Benefits. https://digitalhealth.folio3.com/blog/what-is-federated-learning-in-healthcare-use-case-benefits/
+
+[^28]: GitHub - Fadih/terraform-aks-eks: complete Terraform infrastructure-as .... https://github.com/Fadih/terraform-aks-eks
